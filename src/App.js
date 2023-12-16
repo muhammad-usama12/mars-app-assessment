@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import HealthSafety from "./components/HealthSafety";
 import PersonalInfo from "./components/PersonalInfo";
 import TravelPreferences from "./components/TravelPreferences";
+import video from "./assets/mars_stock.mp4";
 
 function App() {
   const [data, setData] = useState({
@@ -58,7 +59,6 @@ function App() {
     setData((prev) => ({ ...prev, ...newData }));
     setCurrentView((prev) => prev - 1);
   };
-  console.log("DATA:", data);
 
   const views = [
     <PersonalInfo next={handleNextStep} data={data} />,
@@ -75,7 +75,25 @@ function App() {
       data={data}
     />,
   ];
-  return <div>{views[currentView]}</div>;
+  return (
+    <div>
+      <video
+        src={video}
+        autoPlay
+        loop
+        muted
+        playsInline
+        style={{
+          position: "absolute",
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          zIndex: -1,
+        }}
+      />
+      {views[currentView]}
+    </div>
+  );
 }
 
 export default App;

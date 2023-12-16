@@ -1,39 +1,104 @@
+import {
+  Button,
+  Heading,
+  VStack,
+  FormControl,
+  Box,
+  Text,
+  FormLabel,
+} from "@chakra-ui/react";
 import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
 
+import "../App.css";
 export default function PersonalInfo(props) {
   const handleSubmit = (values) => {
     props.next(values);
   };
+
   return (
-    <Formik initialValues={props.data} onSubmit={handleSubmit}>
-      {({ values }) => (
-        <Form
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          {values.firstName ? (
-            <h2>{`${values.firstName}'s`} Information</h2>
-          ) : (
-            <h2>Traveller's Information</h2>
+    <VStack
+      mx="auto"
+      w={{ base: "90%", md: "70%" }}
+      h="100vh"
+      justifyContent="center"
+      spacing={10}
+    >
+      <Box
+        p={8}
+        borderWidth={1}
+        borderRadius="md"
+        boxShadow="lg"
+        borderColor={"#D2A679"}
+        w="100%"
+        maxW="800px"
+      >
+        <Formik initialValues={props.data} onSubmit={handleSubmit}>
+          {({ values }) => (
+            <Form>
+              {values.firstName ? (
+                <Heading
+                  className="title"
+                  textAlign={"center"}
+                  paddingBlock={"1em"}
+                >
+                  {`${values.firstName}'s`} Information
+                </Heading>
+              ) : (
+                <Heading
+                  className="title"
+                  textAlign={"center"}
+                  paddingBlock={"1em"}
+                >
+                  Traveller's Information
+                </Heading>
+              )}
+              <VStack>
+                <Field
+                  type="text"
+                  name="firstName"
+                  placeholder="First Name"
+                  required
+                />
+                <Field
+                  type="text"
+                  name="lastName"
+                  placeholder="Last Name"
+                  required
+                />
+
+                <Field
+                  type="date"
+                  name="dateOfBirth"
+                  placeholder="Date of Birth"
+                  required
+                />
+                <Field
+                  type="text"
+                  name="nationality"
+                  placeholder="Nationality"
+                  required
+                />
+                <Field
+                  type="tel"
+                  name="phoneNum"
+                  placeholder="(123)-456-789"
+                  required
+                />
+                <Field
+                  type="email"
+                  autoComplete="on"
+                  name="email"
+                  placeholder="Email"
+                  required
+                />
+                <Button colorScheme="orange" variant={"outline"} type="submit">
+                  NEXT
+                </Button>
+              </VStack>
+            </Form>
           )}
-          <Field type="text" name="firstName" placeholder="First Name" />
-          <Field type="text" name="lastName" placeholder="Last Name" />
-          <Field type="date" name="dateOfBirth" placeholder="" />
-          <Field type="text" name="nationality" placeholder="Nationality" />
-          <Field type="tel" name="phoneNum" placeholder="(123)-456-789" />
-          <Field
-            type="email"
-            autoComplete="on"
-            name="email"
-            placeholder="Email"
-          />
-          <button type="submit">NEXT</button>
-        </Form>
-      )}
-    </Formik>
+        </Formik>
+      </Box>
+    </VStack>
   );
 }
